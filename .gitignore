@@ -1,0 +1,10 @@
+/.DS_Store
+/Thumbs.db
+/revision*.png
+/ejemplo.png
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+!/assets/
+!/assets/**
