@@ -19,7 +19,11 @@ Web estática de ejemplo para Tiendas Mamaandroid.
 
 Cambios rápidos:
 
-- Contenido principal: `index.html`
-- Estilos: `styles.css`
-- Formulario, scroll y cookies: `script.js`
-- Imágenes públicas: `assets/`
+- Contenido principal: `public/index.html`
+- Estilos: `public/styles.css`
+- Formulario, scroll y cookies: `public/script.js`
+- Imágenes públicas: `public/assets/`
+
+Para revisar localmente, abre:
+
+`public/index.html`
