@@ -114,9 +114,9 @@ svg {
 }
 
 .brand img {
-  width: 250px;
+  width: 210px;
   height: auto;
-  max-height: 92px;
+  max-height: 74px;
   object-fit: contain;
 }
 
@@ -764,7 +764,8 @@ textarea:focus {
 }
 
 .footer img {
-  width: 250px;
+  width: 190px;
+  max-height: 126px;
   height: auto;
   object-fit: contain;
 }
@@ -1052,50 +1053,82 @@ textarea:focus {
     padding-bottom: env(safe-area-inset-bottom);
   }
 
+  body.menu-open {
+    overflow: auto;
+  }
+
   .nav {
-    padding: 10px 16px;
-    min-height: 84px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px 12px 10px;
+    min-height: 0;
   }
 
   .brand img {
-    width: 166px;
-    max-height: 66px;
+    width: 118px;
+    max-height: 48px;
   }
 
   .menu-toggle {
-    min-height: 44px;
-    padding: 0 14px;
-    font-size: 13px;
-    box-shadow: 0 8px 22px rgba(16, 24, 40, .08);
+    display: none;
   }
 
   .menu {
-    top: 92px;
-    left: 12px;
-    right: 12px;
+    position: static;
+    z-index: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    padding: 0 0 2px;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .menu .btn {
-    width: 100%;
+    display: none;
+  }
+
+  .menu a {
+    flex: 1 1 calc(33.333% - 8px);
+    min-height: 36px;
+    padding: 0 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--white);
+    color: #203149;
+    font-size: 11px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, .06);
   }
 
   .hero {
     margin: 12px 12px 0;
+    padding: 0;
     border-radius: 18px;
-    background: var(--white);
-    box-shadow: 0 10px 28px rgba(16, 24, 40, .08);
+    background: transparent;
+    box-shadow: none;
   }
 
   .hero > img {
     min-height: 0;
     max-height: none;
     object-position: center;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(16, 24, 40, .08);
   }
 
   .hero-actions {
     flex-direction: column;
     gap: 12px;
-    padding: 14px 18px 18px;
+    margin-top: 10px;
+    padding: 0;
+    background: transparent;
   }
 
   .image-button {
@@ -1232,7 +1265,12 @@ textarea:focus {
   }
 
   .floating-whatsapp {
-    display: none;
+    right: 14px;
+    bottom: 14px;
+    z-index: 70;
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 14px;
   }
 
   .cookie-banner {

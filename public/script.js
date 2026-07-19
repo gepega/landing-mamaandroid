@@ -7,6 +7,10 @@ const analyticsConsent = document.querySelector("#analyticsConsent");
 const cookieSave = document.querySelector('[data-cookie-action="save"]');
 const COOKIE_KEY = "mamaandroid_cookie_consent";
 
+if (analyticsConsent) {
+  analyticsConsent.checked = false;
+}
+
 menuToggle?.addEventListener("click", () => {
   const open = !menu.classList.contains("open");
   menu.classList.toggle("open", open);
@@ -83,6 +87,7 @@ cookieBanner?.addEventListener("click", (event) => {
   if (action === "settings") {
     cookieOptions.hidden = false;
     cookieSave.hidden = false;
+    if (analyticsConsent) analyticsConsent.checked = false;
   }
   if (action === "save") saveCookieConsent(Boolean(analyticsConsent?.checked));
 });
