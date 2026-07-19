@@ -830,13 +830,17 @@ textarea:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 58px;
-  padding: 0 22px;
-  border-radius: 999px;
-  background: #19b85a;
-  color: var(--white);
-  font-weight: 900;
-  box-shadow: 0 18px 45px rgba(25, 184, 90, .35);
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: 0 18px 45px rgba(25, 184, 90, .28);
+}
+
+.floating-whatsapp img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .cookie-banner {
@@ -1061,13 +1065,19 @@ textarea:focus {
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 8px 12px 10px;
+    padding: 10px 12px 11px;
     min-height: 0;
   }
 
+  .brand {
+    justify-self: center;
+  }
+
   .brand img {
-    width: 118px;
-    max-height: 48px;
+    width: 180px;
+    height: 76px;
+    max-height: none;
+    object-fit: contain;
   }
 
   .menu-toggle {
@@ -1108,7 +1118,7 @@ textarea:focus {
   }
 
   .hero {
-    margin: 12px 12px 0;
+    margin: 12px 12px 18px;
     padding: 0;
     border-radius: 18px;
     background: transparent;
@@ -1127,6 +1137,7 @@ textarea:focus {
     flex-direction: column;
     gap: 12px;
     margin-top: 10px;
+    margin-bottom: 20px;
     padding: 0;
     background: transparent;
   }
@@ -1268,9 +1279,9 @@ textarea:focus {
     right: 14px;
     bottom: 14px;
     z-index: 70;
-    min-height: 48px;
-    padding: 0 16px;
-    font-size: 14px;
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
   }
 
   .cookie-banner {
