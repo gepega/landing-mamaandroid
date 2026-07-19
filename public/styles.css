@@ -571,6 +571,35 @@ textarea:focus {
   font-size: 12px;
 }
 
+.seo-strengths {
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+.strength-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.strength-grid article {
+  padding: 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(16, 24, 40, .06);
+}
+
+.strength-grid h3 {
+  font-size: 18px;
+}
+
+.strength-grid p {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1019,6 +1048,7 @@ textarea:focus {
   .lead-card,
   .split,
   .rating-summary,
+  .strength-grid,
   .store-grid,
   .faq-grid {
     grid-template-columns: 1fr;
@@ -1250,6 +1280,21 @@ textarea:focus {
 
   .section {
     padding: 30px 18px;
+  }
+
+  .seo-strengths {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .strength-grid {
+    gap: 10px;
+  }
+
+  .strength-grid article,
+  .faq-grid article {
+    padding: 18px;
+    border-radius: 16px;
   }
 
   .split.section {
