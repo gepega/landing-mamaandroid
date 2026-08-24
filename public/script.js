@@ -28,6 +28,11 @@ const trackEvent = (name, params = {}) => {
   }
 };
 
+const getClickLabel = (element) => {
+  const text = element.textContent?.replace(/\s+/g, " ").trim();
+  return text || element.getAttribute("aria-label") || element.getAttribute("href") || "sin_etiqueta";
+};
+
 const openWhatsApp = (message) => {
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 };
@@ -75,7 +80,7 @@ leadForm?.addEventListener("submit", (event) => {
   const nombre = String(formData.get("nombre") || "").trim();
   const telefono = String(formData.get("telefono") || "").trim();
   const necesidad = String(formData.get("necesidad") || "").trim();
-  const message = `Hola, os contacto desde la web de Tiendas Mamaandroid. Me llamo ${nombre}, mi número es ${telefono} y necesitaba esto: ${necesidad}`;
+  const message = `Hola, os contacto desde la web de Mamaandroid. Me llamo ${nombre}, mi número es ${telefono} y necesitaba esto: ${necesidad}`;
   trackEvent("lead_form_submit", { source: "te_llamamos" });
   openWhatsApp(message);
 });
@@ -107,7 +112,7 @@ coverageForm?.addEventListener("submit", (event) => {
   const observaciones = String(formData.get("observaciones") || "").trim();
   const message = [
     "Hola, le escribo desde la web tiendasmamaandroid.com.",
-    "Le dejo mis datos para consultar cobertura de Fibra Smart:",
+    "Le dejo mis datos para consultar cobertura DIGI:",
     "",
     `Nombre: ${nombre}`,
     `Teléfono: ${telefono}`,
@@ -118,6 +123,55 @@ coverageForm?.addEventListener("submit", (event) => {
   ].filter(Boolean).join("\n");
   trackEvent("coverage_form_submit", { source: "consulta_cobertura" });
   openWhatsApp(message);
+});
+
+document.addEventListener("click", (event) => {
+  const element = event.target.closest("a, button");
+  if (!element) return;
+
+  const href = element.getAttribute("href") || "";
+  const label = getClickLabel(element);
+  const cookieAction = element.dataset.cookieAction;
+
+  if (element.matches("[data-open-coverage]")) return;
+  if (element.closest("#leadForm") || element.closest("#coverageForm")) return;
+
+  if (cookieAction) {
+    trackEvent("cookie_action", { action: cookieAction });
+    return;
+  }
+
+  if (href.startsWith("tel:")) {
+    trackEvent("phone_click", { label });
+    return;
+  }
+
+  if (href.includes("wa.me/")) {
+    let destination = "general";
+    if (href.includes("614386289")) destination = "rivero";
+    if (href.includes("641954160")) destination = "atrio";
+    trackEvent("whatsapp_click", { destination, label });
+    return;
+  }
+
+  if (href.includes("google.com/maps")) {
+    trackEvent("directions_click", { label });
+    return;
+  }
+
+  if (href.includes("share.google")) {
+    trackEvent("google_profile_click", { label });
+    return;
+  }
+
+  if (href.startsWith("#")) {
+    trackEvent("section_nav_click", { section: href, label });
+    return;
+  }
+
+  if (href.endsWith(".html")) {
+    trackEvent("legal_link_click", { page: href, label });
+  }
 });
 
 const loadGoogleAnalytics = () => {
@@ -138,7 +192,10 @@ const loadGoogleAnalytics = () => {
 const saveCookieConsent = (analytics) => {
   localStorage.setItem(COOKIE_KEY, JSON.stringify({ analytics, date: new Date().toISOString() }));
   cookieBanner.hidden = true;
-  if (analytics) loadGoogleAnalytics();
+  if (analytics) {
+    loadGoogleAnalytics();
+    trackEvent("cookie_analytics_accept");
+  }
 };
 
 const existingConsent = localStorage.getItem(COOKIE_KEY);
