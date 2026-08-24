@@ -57,7 +57,7 @@ coverageTriggers.forEach((trigger) => {
     event.preventDefault();
     coverageSection.hidden = false;
     trackEvent("coverage_form_open", { source: "hero_coverage_button" });
-    const mobileOffset = window.matchMedia("(max-width: 620px)").matches ? 82 : 0;
+    const mobileOffset = window.matchMedia("(max-width: 620px)").matches ? 36 : 0;
     requestAnimationFrame(() => {
       scrollToSection(coverageSection, mobileOffset);
       setTimeout(() => scrollToSection(coverageSection, mobileOffset), 120);
