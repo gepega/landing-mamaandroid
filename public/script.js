@@ -32,10 +32,10 @@ const openWhatsApp = (message) => {
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 };
 
-const scrollToSection = (target) => {
+const scrollToSection = (target, extraOffset = 0) => {
   if (!target) return;
   const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
-  const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
+  const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18 + extraOffset;
   window.scrollTo({ top, behavior: "smooth" });
 };
 
@@ -57,8 +57,12 @@ coverageTriggers.forEach((trigger) => {
     event.preventDefault();
     coverageSection.hidden = false;
     trackEvent("coverage_form_open", { source: "hero_coverage_button" });
-    scrollToSection(coverageSection);
-    coverageForm?.querySelector('[name="nombre"]')?.focus({ preventScroll: true });
+    const mobileOffset = window.matchMedia("(max-width: 620px)").matches ? 82 : 0;
+    requestAnimationFrame(() => {
+      scrollToSection(coverageSection, mobileOffset);
+      setTimeout(() => scrollToSection(coverageSection, mobileOffset), 120);
+      coverageForm?.querySelector('[name="nombre"]')?.focus({ preventScroll: true });
+    });
   });
 });
 
