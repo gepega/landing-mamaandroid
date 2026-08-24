@@ -182,7 +182,7 @@
         <a class="image-button" href="#formulario" aria-label="Te llamamos">
           <img src="assets/boton-te-llamamos.png" alt="Te llamamos">
         </a>
-        <a class="image-button" href="https://www.digimobil.es/cobertura" target="_blank" rel="noopener" aria-label="Consultar cobertura DIGI">
+        <a class="image-button" href="#cobertura" aria-label="Consultar cobertura DIGI" data-open-coverage>
           <img src="assets/boton-consulta-cobertura.png" alt="Consultar cobertura">
         </a>
       </div>
@@ -209,7 +209,7 @@
           <span>Teléfono</span>
           <input name="telefono" inputmode="tel" autocomplete="tel" required>
         </label>
-        <label>
+        <label class="full-span">
           <span>¿Qué necesitas?</span>
           <textarea name="necesidad" rows="3" placeholder="DIGI, reparar móvil, vender mi móvil, informática..." required></textarea>
         </label>
@@ -219,6 +219,52 @@
         </label>
         <p class="privacy-note">Usaremos tus datos solo para responder a esta consulta por WhatsApp. El formulario no guarda datos en la web.</p>
         <button class="btn btn-green btn-xl" type="submit">Quiero que me llaméis</button>
+      </form>
+    </section>
+
+    <section class="lead-card coverage-card" id="cobertura" hidden>
+      <div>
+        <p class="eyebrow">Consulta de cobertura DIGI</p>
+        <h2>Indícanos tu dirección y comprobaremos si dispones de Fibra Smart en tu zona</h2>
+        <p>Déjanos tu dirección y comprobaremos la cobertura de Fibra Smart en Avilés, Castrillón, Corvera de Asturias y alrededores. Te responderemos desde nuestras tiendas Mamaandroid para ayudarte con la instalación, tarifas y disponibilidad.</p>
+      </div>
+      <form id="coverageForm" class="lead-form coverage-form">
+        <label>
+          <span>Nombre</span>
+          <input name="nombre" autocomplete="name" required>
+        </label>
+        <label>
+          <span>Teléfono</span>
+          <input name="telefono" inputmode="tel" autocomplete="tel" required>
+        </label>
+        <label>
+          <span>Código postal</span>
+          <input name="codigoPostal" inputmode="numeric" autocomplete="postal-code" required>
+        </label>
+        <label>
+          <span>Calle</span>
+          <input name="calle" autocomplete="address-line1" required>
+        </label>
+        <div class="coverage-number-row">
+          <label>
+            <span>Número</span>
+            <input name="numero" autocomplete="address-line2" required>
+          </label>
+          <label class="inline-check">
+            <input name="sinNumero" type="checkbox">
+            <span>S/N</span>
+          </label>
+        </div>
+        <label class="full-span">
+          <span>Observaciones</span>
+          <textarea name="observaciones" rows="3" placeholder="Piso, portal, horario para llamar o cualquier detalle útil"></textarea>
+        </label>
+        <label class="privacy-check">
+          <input name="privacidad" type="checkbox" required>
+          <span>He leído y acepto la <a href="politica-privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.</span>
+        </label>
+        <p class="privacy-note">Usaremos estos datos solo para revisar la cobertura y responderte por WhatsApp. El formulario no guarda datos en la web.</p>
+        <button class="btn btn-green btn-xl" type="submit">Enviar consulta de cobertura</button>
       </form>
     </section>
 

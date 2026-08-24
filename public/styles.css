@@ -293,6 +293,18 @@ svg {
   scroll-margin-top: 128px;
 }
 
+.lead-card[hidden] {
+  display: none;
+}
+
+.coverage-card {
+  margin-top: 22px;
+  border-color: rgba(22, 143, 66, .22);
+  background:
+    linear-gradient(180deg, rgba(242, 249, 245, .86), rgba(255, 255, 255, .98)),
+    var(--white);
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--green);
@@ -341,11 +353,43 @@ p {
   gap: 14px;
 }
 
-.lead-form label:nth-child(3),
+.lead-form .full-span,
+.lead-form .coverage-number-row,
 .lead-form .privacy-check,
 .lead-form .privacy-note,
 .lead-form button {
   grid-column: 1 / -1;
+}
+
+.coverage-number-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: end;
+}
+
+.inline-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 51px;
+  padding: 0 16px;
+  border: 1px solid #d7dfeb;
+  border-radius: 14px;
+  background: var(--white);
+  color: #344054;
+  font-weight: 800;
+}
+
+.inline-check input {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  accent-color: var(--green);
+}
+
+.inline-check span {
+  margin: 0;
 }
 
 .privacy-check {
@@ -1223,6 +1267,14 @@ textarea:focus {
   .store-media,
   .footer {
     grid-template-columns: 1fr;
+  }
+
+  .coverage-number-row {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-check {
+    width: 100%;
   }
 
   .services-showcase {

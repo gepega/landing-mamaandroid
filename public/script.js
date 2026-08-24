@@ -1,11 +1,15 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#menu");
 const leadForm = document.querySelector("#leadForm");
+const coverageForm = document.querySelector("#coverageForm");
+const coverageSection = document.querySelector("#cobertura");
+const coverageTriggers = document.querySelectorAll("[data-open-coverage]");
 const cookieBanner = document.querySelector("#cookieBanner");
 const cookieOptions = document.querySelector("#cookieOptions");
 const analyticsConsent = document.querySelector("#analyticsConsent");
 const cookieSave = document.querySelector('[data-cookie-action="save"]');
 const COOKIE_KEY = "mamaandroid_cookie_consent";
+const WHATSAPP_NUMBER = "34641954160";
 
 if (analyticsConsent) {
   analyticsConsent.checked = false;
@@ -18,17 +22,43 @@ menuToggle?.addEventListener("click", () => {
   menuToggle.setAttribute("aria-expanded", String(open));
 });
 
+const trackEvent = (name, params = {}) => {
+  if (window.gtag) {
+    window.gtag("event", name, params);
+  }
+};
+
+const openWhatsApp = (message) => {
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+};
+
+const scrollToSection = (target) => {
+  if (!target) return;
+  const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+  const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
+  window.scrollTo({ top, behavior: "smooth" });
+};
+
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (event) => {
+    if (link.matches("[data-open-coverage]")) return;
     const target = document.querySelector(link.getAttribute("href"));
     if (!target) return;
     event.preventDefault();
-    const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
-    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
-    window.scrollTo({ top, behavior: "smooth" });
+    scrollToSection(target);
     menu.classList.remove("open");
     document.body.classList.remove("menu-open");
     menuToggle?.setAttribute("aria-expanded", "false");
+  });
+});
+
+coverageTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    event.preventDefault();
+    coverageSection.hidden = false;
+    trackEvent("coverage_form_open", { source: "hero_coverage_button" });
+    scrollToSection(coverageSection);
+    coverageForm?.querySelector('[name="nombre"]')?.focus({ preventScroll: true });
   });
 });
 
@@ -42,7 +72,48 @@ leadForm?.addEventListener("submit", (event) => {
   const telefono = String(formData.get("telefono") || "").trim();
   const necesidad = String(formData.get("necesidad") || "").trim();
   const message = `Hola, os contacto desde la web de Tiendas Mamaandroid. Me llamo ${nombre}, mi número es ${telefono} y necesitaba esto: ${necesidad}`;
-  window.open(`https://wa.me/34641954160?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  trackEvent("lead_form_submit", { source: "te_llamamos" });
+  openWhatsApp(message);
+});
+
+const coverageNumberInput = coverageForm?.querySelector('[name="numero"]');
+const coverageWithoutNumber = coverageForm?.querySelector('[name="sinNumero"]');
+
+coverageWithoutNumber?.addEventListener("change", () => {
+  const withoutNumber = Boolean(coverageWithoutNumber.checked);
+  coverageNumberInput.required = !withoutNumber;
+  coverageNumberInput.disabled = withoutNumber;
+  if (withoutNumber) {
+    coverageNumberInput.value = "";
+  }
+});
+
+coverageForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!coverageForm.reportValidity()) {
+    return;
+  }
+  const formData = new FormData(coverageForm);
+  const nombre = String(formData.get("nombre") || "").trim();
+  const telefono = String(formData.get("telefono") || "").trim();
+  const codigoPostal = String(formData.get("codigoPostal") || "").trim();
+  const calle = String(formData.get("calle") || "").trim();
+  const sinNumero = Boolean(formData.get("sinNumero"));
+  const numero = sinNumero ? "S/N" : String(formData.get("numero") || "").trim();
+  const observaciones = String(formData.get("observaciones") || "").trim();
+  const message = [
+    "Hola, le escribo desde la web tiendasmamaandroid.com.",
+    "Le dejo mis datos para consultar cobertura de Fibra Smart:",
+    "",
+    `Nombre: ${nombre}`,
+    `Teléfono: ${telefono}`,
+    `Código postal: ${codigoPostal}`,
+    `Calle: ${calle}`,
+    `Número: ${numero}`,
+    observaciones ? `Observaciones: ${observaciones}` : ""
+  ].filter(Boolean).join("\n");
+  trackEvent("coverage_form_submit", { source: "consulta_cobertura" });
+  openWhatsApp(message);
 });
 
 const loadGoogleAnalytics = () => {
