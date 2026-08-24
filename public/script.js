@@ -71,6 +71,11 @@ coverageTriggers.forEach((trigger) => {
   });
 });
 
+if (coverageSection && window.location.hash === "#cobertura") {
+  coverageSection.hidden = false;
+  requestAnimationFrame(() => scrollToSection(coverageSection));
+}
+
 leadForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!leadForm.reportValidity()) {

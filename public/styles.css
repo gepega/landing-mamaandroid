@@ -276,6 +276,68 @@ svg {
   display: block;
 }
 
+.seo-landing .site-header {
+  position: sticky;
+}
+
+.page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, .96fr) minmax(320px, 1.04fr);
+  gap: 34px;
+  align-items: center;
+  max-width: 1180px;
+  margin: 36px auto 0;
+  padding: 34px 24px 20px;
+}
+
+.page-hero h1 {
+  max-width: 760px;
+}
+
+.page-hero p {
+  max-width: 720px;
+  font-size: 18px;
+}
+
+.page-hero img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.hero-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.local-seo-band {
+  max-width: none;
+  background: #f2f9f5;
+}
+
+.local-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.local-grid article {
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid rgba(22, 143, 66, .18);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(16, 24, 40, .06);
+}
+
+.local-grid p {
+  margin-bottom: 0;
+}
+
 .lead-card {
   display: grid;
   grid-template-columns: .85fr 1.15fr;
@@ -1095,10 +1157,12 @@ textarea:focus {
   }
 
   .lead-card,
+  .page-hero,
   .split,
   .rating-summary,
   .strength-grid,
   .store-grid,
+  .local-grid,
   .faq-grid {
     grid-template-columns: 1fr;
   }
@@ -1106,6 +1170,10 @@ textarea:focus {
   .lead-card {
     width: calc(100% - 36px);
     margin: 22px 18px 0;
+  }
+
+  .page-hero {
+    padding-top: 24px;
   }
 
   .service-grid {
@@ -1260,6 +1328,7 @@ textarea:focus {
   }
 
   .lead-form button,
+  .hero-link-row .btn,
   .store-actions .btn,
   .contact-strip .btn {
     width: 100%;
