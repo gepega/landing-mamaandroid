@@ -1,5 +1,6 @@
 /.DS_Store
 /Thumbs.db
+/.wrangler/
 /revision*.png
 /ejemplo.png
 /*.png
