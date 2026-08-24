@@ -994,6 +994,11 @@ textarea:focus {
   font-size: 13px;
 }
 
+.cookie-actions [data-cookie-action="accept"],
+.cookie-actions [data-cookie-action="save"] {
+  min-width: 132px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .service-card,
   .lead-card,
